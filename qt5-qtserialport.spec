@@ -1,5 +1,3 @@
-# TODO:
-# - cleanup
 #
 # Conditional build:
 %bcond_without	qch	# documentation in QCH format
@@ -10,15 +8,16 @@
 Summary:	The Qt5 SerialPort library
 Summary(pl.UTF-8):	Biblioteka Qt5 SerialPort
 Name:		qt5-%{orgname}
-Version:	5.2.0
-Release:	0.1
-License:	LGPL v2.1 or GPL v3.0
+Version:	5.3.0
+Release:	1
+License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		Libraries
-Source0:	http://download.qt-project.org/official_releases/qt/5.2/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
-# Source0-md5:	7b90e0707b698331226e662bd39945e9
+Source0:	http://download.qt-project.org/official_releases/qt/5.3/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
+# Source0-md5:	393a352f82f1f0000157834751a29578
 URL:		http://qt-project.org/
-BuildRequires:	qt5-qtbase-devel = %{qtbase_ver}
-BuildRequires:	qt5-qttools-devel = %{qttools_ver}
+BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
+BuildRequires:	Qt5Gui-devel >= %{qtbase_ver}
+BuildRequires:	Qt5Widgets-devel >= %{qtbase_ver}
 %if %{with qch}
 BuildRequires:	qt5-assistant >= %{qttools_ver}
 %endif
@@ -26,6 +25,7 @@ BuildRequires:	qt5-build >= %{qtbase_ver}
 BuildRequires:	qt5-qmake >= %{qtbase_ver}
 BuildRequires:	rpmbuild(macros) >= 1.654
 BuildRequires:	tar >= 1:1.22
+BuildRequires:	udev-devel
 BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -55,10 +55,12 @@ Requires:	Qt5Core >= %{qtbase_ver}
 Obsoletes:	qt5-qtserialport
 
 %description -n Qt5SerialPort
-Qt5 SerialPort library provides [...]
+Qt5 SerialPort library provides classes that enable access to a serial
+port.
 
 %description -n Qt5SerialPort -l pl.UTF_8
-Biblioteka Qt5 SerialPort [...]
+Biblioteka Qt5 SerialPort udostępnia klasy pozwalające na dostęp do
+portu szeregowego.
 
 %package -n Qt5SerialPort-devel
 Summary:	Qt5 SerialPort library - development files
@@ -66,6 +68,7 @@ Summary(pl.UTF-8):	Biblioteka Qt5 SerialPort - pliki programistyczne
 Group:		Development/Libraries
 Requires:	Qt5Core-devel >= %{qtbase_ver}
 Requires:	Qt5SerialPort = %{version}-%{release}
+Requires:	udev-devel
 Obsoletes:	qt5-qtserialport-devel
 
 %description -n Qt5SerialPort-devel
@@ -147,9 +150,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n Qt5SerialPort
 %defattr(644,root,root,755)
+%doc LGPL_EXCEPTION.txt dist/changes-*
 %attr(755,root,root) %{_libdir}/libQt5SerialPort.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libQt5SerialPort.so.5
-#%attr(755,root,root) %{qt5dir}/plugins
 
 %files -n Qt5SerialPort-devel
 %defattr(644,root,root,755)
@@ -158,7 +161,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/qt5/QtSerialPort
 %{_pkgconfigdir}/Qt5SerialPort.pc
 %{_libdir}/cmake/Qt5SerialPort
-%{qt5dir}/mkspecs/modules/*.pri
+%{qt5dir}/mkspecs/modules/qt_lib_serialport.pri
+%{qt5dir}/mkspecs/modules/qt_lib_serialport_private.pri
 
 %files doc
 %defattr(644,root,root,755)
@@ -170,4 +174,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/qt5-doc/qtserialport.qch
 %endif
 
+# examples not installed
 #%files examples -f examples.files
