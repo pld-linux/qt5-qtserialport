@@ -58,7 +58,7 @@ Obsoletes:	qt5-qtserialport
 Qt5 SerialPort library provides classes that enable access to a serial
 port.
 
-%description -n Qt5SerialPort -l pl.UTF_8
+%description -n Qt5SerialPort -l pl.UTF-8
 Biblioteka Qt5 SerialPort udostępnia klasy pozwalające na dostęp do
 portu szeregowego.
 
