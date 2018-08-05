@@ -8,12 +8,12 @@
 Summary:	The Qt5 SerialPort library
 Summary(pl.UTF-8):	Biblioteka Qt5 SerialPort
 Name:		qt5-%{orgname}
-Version:	5.8.0
+Version:	5.11.1
 Release:	1
 License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		Libraries
-Source0:	http://download.qt.io/official_releases/qt/5.8/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
-# Source0-md5:	1a39fbb6436761a2ea3edce6628a41bd
+Source0:	http://download.qt.io/official_releases/qt/5.11/%{version}/submodules/%{orgname}-everywhere-src-%{version}.tar.xz
+# Source0-md5:	688a0da3a81da7c0ca0a9a50e7d3de9e
 URL:		http://www.qt.io/
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Gui-devel >= %{qtbase_ver}
@@ -122,7 +122,7 @@ Qt5 SerialPort examples.
 Przykłady do biblioteki Qt5 SerialPort.
 
 %prep
-%setup -q -n %{orgname}-opensource-src-%{version}
+%setup -q -n %{orgname}-everywhere-src-%{version}
 
 %build
 qmake-qt5
@@ -140,7 +140,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 # useless symlinks
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libQt5*.so.5.?
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libQt5*.so.5.??
 # actually drop *.la, follow policy of not packaging them when *.pc exist
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libQt5*.la
 
@@ -152,7 +152,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n Qt5SerialPort
 %defattr(644,root,root,755)
-%doc LGPL_EXCEPTION.txt dist/changes-*
+%doc LICENSE.GPL3-EXCEPT dist/changes-*
 %attr(755,root,root) %{_libdir}/libQt5SerialPort.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libQt5SerialPort.so.5
 
