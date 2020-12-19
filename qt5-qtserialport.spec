@@ -52,7 +52,7 @@ Summary:	The Qt5 SerialPort library
 Summary(pl.UTF-8):	Biblioteka Qt5 SerialPort
 Group:		Libraries
 Requires:	Qt5Core >= %{qtbase_ver}
-Obsoletes:	qt5-qtserialport
+Obsoletes:	qt5-qtserialport < 5.2.0-1
 
 %description -n Qt5SerialPort
 Qt5 SerialPort library provides classes that enable access to a serial
@@ -69,7 +69,7 @@ Group:		Development/Libraries
 Requires:	Qt5Core-devel >= %{qtbase_ver}
 Requires:	Qt5SerialPort = %{version}-%{release}
 Requires:	udev-devel
-Obsoletes:	qt5-qtserialport-devel
+Obsoletes:	qt5-qtserialport-devel < 5.2.0-1
 
 %description -n Qt5SerialPort-devel
 Qt5 SerialPort library - development files.
