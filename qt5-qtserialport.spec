@@ -131,6 +131,7 @@ qmake-qt5
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 
@@ -143,6 +144,31 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libQt5*.so.5.??
 # actually drop *.la, follow policy of not packaging them when *.pc exist
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libQt5*.la
+
+# Prepare some files list
+ifecho() {
+	r="$RPM_BUILD_ROOT$2"
+	if [ -d "$r" ]; then
+		echo "%%dir $2" >> $1.files
+	elif [ -x "$r" ] ; then
+		echo "%%attr(755,root,root) $2" >> $1.files
+	elif [ -f "$r" ]; then
+		echo "$2" >> $1.files
+	else
+		echo "Error generation $1 files list!"
+		echo "$r: no such file or directory!"
+		return 1
+	fi
+}
+ifecho_tree() {
+	ifecho $1 $2
+	for f in `find $RPM_BUILD_ROOT$2 -printf "%%P "`; do
+		ifecho $1 $2/$f
+	done
+}
+
+echo "%defattr(644,root,root,755)" > examples.files
+ifecho_tree examples %{_examplesdir}/qt5/serialport
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -176,5 +202,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_docdir}/qt5-doc/qtserialport.qch
 %endif
 
-# examples not installed
-#%files examples -f examples.files
+%files examples -f examples.files
+%defattr(644,root,root,755)
+# XXX: dir shared with qt5-qtbase-examples
+%dir %{_examplesdir}/qt5
