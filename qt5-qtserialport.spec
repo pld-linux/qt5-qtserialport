@@ -52,7 +52,7 @@ Ten pakiet zawiera bibliotekę Qt5 SerialPort.
 Summary:	The Qt5 SerialPort library
 Summary(pl.UTF-8):	Biblioteka Qt5 SerialPort
 Group:		Libraries
-Requires:	Qt5Core >= %{qtbase_ver}
+%requires_eq_to	Qt5Core Qt5Core-devel
 Obsoletes:	qt5-qtserialport < 5.2.0-1
 
 %description -n Qt5SerialPort
