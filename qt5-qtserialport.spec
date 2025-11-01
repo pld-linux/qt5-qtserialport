@@ -8,12 +8,12 @@
 Summary:	The Qt5 SerialPort library
 Summary(pl.UTF-8):	Biblioteka Qt5 SerialPort
 Name:		qt5-%{orgname}
-Version:	5.15.17
+Version:	5.15.18
 Release:	1
 License:	LGPL v3 or GPL v2 or GPL v3 or commercial
 Group:		Libraries
-Source0:	https://download.qt.io/official_releases/qt/5.15/%{version}/submodules/%{orgname}-everywhere-opensource-src-%{version}.tar.xz
-# Source0-md5:	48146c5b1b1096367dcf52a07f35b55a
+Source0:	https://download.qt.io/archive/qt/5.15/%{version}/submodules/%{orgname}-everywhere-opensource-src-%{version}.tar.xz
+# Source0-md5:	13b5ee9883bf50d067a01a506196ecde
 URL:		https://www.qt.io/
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Gui-devel >= %{qtbase_ver}
